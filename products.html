@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Books - WanderBooks ワンダー本屋 </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <i class="fas fa-book-open"></i>
+                <h1>WanderBooks ワンダー本屋</h1>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-toggle">
+                <div class="hamburger-icon"></div>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Books</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+    <div class="sidebar-cart">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        
+        <div class="cart-total">
+            <p><strong>Total:</strong> RM<span class="total-amount">0.00</span></p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+    <div class="overlay"></div>
+
+    <main>
+        <section class="products-header">
+            <h1>Our Book Collection</h1>
+            <p>Browse through our wide selection of books across various genres.</p>
+        </section>
+
+        <section class="filters">
+            <div class="filter-group">
+                <label for="genre">Genre:</label>
+                <select id="genre">
+                    <option value="all">All Genres</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="slice of life">Slice Of Life</option>
+                    <option value="mystery">Mystery</option>
+                    <option value="adult romance">Adult Romance</option>
+                    <option value="comic">Comic / Manga</option>
+                    <option value="biography">Biography</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="sort">Sort By:</label>
+                <select id="sort">
+                    <option value="popular">Most Popular</option>
+                    <option value="newest">Newest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+        </section>
+        <section class="products-grid">
+            <div class="book-card" data-id="1" data-genre="comic" data-price="33.20"><a href="product-detail.html" class="book-link" data-id="1">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97847/97847575/9784757594395.JPG" alt="Book Cover">
+                <h3>薬屋のひとりごと<１４>（ビッグガンガンコミックス）</h3>
+                <p class="author">日向夏 / ねこクラゲ</p>
+                <p class="price">RM33.20</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="2" data-genre="fiction" data-price="212.84"><a href="product-detail.html" class="book-link" data-id="2">
+                <img src="https://m.media-amazon.com/images/I/71E+55LfX3L._SY342_.jpg" alt="Book Cover">
+                <h3>Twisted Series 4 Books Collection Set (Twisted Love, Twisted Games, Twisted Hate & Twisted Lies) </h3>
+                <p class="author">Ana Huang</p>
+                <p class="price">RM 212.84</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="3" data-genre="comic" data-price="34.29"><a href="product-detail.html" class="book-link" data-id="3">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97847/97847575/9784757597693.JPG" alt="Book Cover">
+                <h3>薬屋のひとりごと<１５>（ビッグガンガンコミックス）</h3>
+                <p class="author"> 日向夏 / ねこクラゲ</p>
+                <p class="price">RM34.29</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="4" data-genre="fiction" data-price="116.81"><a href="product-detail.html" class="book-link" data-id="4">
+                <img src="https://m.media-amazon.com/images/I/81qOrDffOUL._SY342_.jpg" alt="Book Cover">
+                <h3>Shatter Me Series Books 1 - 7 Collection Set</h3>
+                <p class="author">Tahereh Mafi</p>
+                <p class="price">RM 116.81</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="5" data-genre="comic" data-price="33.70"> <a href="product-detail.html" class="book-link" data-id="5">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97840/97840652/9784065234174.JPG" alt="Book Cover">
+                <h3>進撃の巨人<３４>（少年マガジンＫＣ）</h3>
+                <p class="author">諌山創</p>
+                <p class="price">RM33.70 </p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="6" data-genre="adult romance" data-price="99.00"> <a href="product-detail.html" class="book-link" data-id="6">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97816/97816389/9781638932468.JPG" alt="Book Cover">
+                <h3>Haunting Adeline (Cat and Mouse Duet) [Paperback]</h3>
+                <p class="author">Carlton, H. D.</p>
+                <p class="price">RM99.00</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="7" data-genre="adult romance"  data-price="63.48"> <a href="product-detail.html" class="book-link" data-id="7">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97818/97818049/9781804955956.JPG" alt="Book Cover">
+                <h3>God of Fury (Legacy of Gods) [Paperback]</h3>
+                <p class="author">Kent. Rina</p>
+                <p class="price">RM63.48</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="8" data-genre="slice of life" data-price="89.90"> <a href="product-detail.html" class="book-link" data-id="8">
+                <img src="https://hachette.imgix.net/books/9781529437423.jpg?auto=compress&w=440" alt="Book Cover">
+                <h3>Yeonnam-dong's Smiley Laundromat : The Heartwarming Korean Bestseller [Paperback]</h3>
+                <p class="author">Kim Jiyun</p>
+                <p class="price">RM89.90</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="9" data-genre="mystery" data-price="59.90"> <a href="product-detail.html" class="book-link" data-id="9">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97814/97814052/9781405293181.JPG" alt="Book Cover">
+                <h3>A Good Girl's Guide to Murder [Paperback]</h3>
+                <p class="author">Holly Jackson</p>
+                <p class="price">RM59.90</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="10" data-genre="slice of life" data-price="69.90"> <a href="product-detail.html" class="book-link" data-id="10">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97813/97813987/9781398722774.JPG" alt="Book Cover">
+                <h3>The Convenience Store by the Sea [Paperback]</h3>
+                <p class="author">Sonoko Machida</p>
+                <p class="price">RM69.90</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="11" data-genre="biography" data-price="138.00"> <a href="product-detail.html" class="book-link" data-id="11">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97802/97802416/9780241683132.JPG" alt="Book Cover">
+                <h3>What I Ate in One Year : (and related thoughts) [Hardcover]</h3>
+                <p class="author">Stanley Tucci</p>
+                <p class="price">RM138.00</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="12" data-genre="fiction" data-price="69.90"> <a href="product-detail.html" class="book-link" data-id="12">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97803/97803565/9780356519494.JPG" alt="Book Cover">
+                <h3>One Dark Window</h3>
+                <p class="author">Rachel Gillig</p>
+                <p class="price">RM69.90</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="book-card" data-id="13" data-genre="mystery" data-price="64.95"><a href="product-detail.html" class="book-link" data-id="13">
+                <img src="https://bci.kinokuniya.com/jsp/images/book-img/97815/97815387/9781538742570.JPG" alt="Book Cover">
+                <h3>The Housemaid [Paperback]</h3>
+                <p class="author">Freida McFadden</p>
+                <p class="price">RM64.95</p></a>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </section> 
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Books</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@wanderbooks.com</p>
+                <p>Phone: (222) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 WanderBooks ワンダー本屋 | Alice Chua. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartBtn = document.querySelector('.cart-btn');
+        const sidebarCart = document.querySelector('.sidebar-cart');
+        const overlay = document.querySelector('.overlay');
+        const closeCart = document.querySelector('.close-cart');
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const totalAmount = document.querySelector('.total-amount');
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+
+        // Open cart
+        cartBtn.addEventListener('click', function() {
+            sidebarCart.classList.add('open');
+            overlay.classList.add('show');
+        });
+
+        // Close cart
+        closeCart.addEventListener('click', function() {
+            sidebarCart.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebarCart.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        // Add to cart
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const bookCard = this.parentElement;
+                const id = bookCard.getAttribute('data-id');
+                const title = bookCard.querySelector('h3').textContent;
+                const price = parseFloat(bookCard.getAttribute('data-price'));
+                const author = bookCard.querySelector('.author').textContent;
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        title,
+                        price,
+                        author,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                saveCartToLocalStorage();
+            });
+        });
+
+        // Update cart UI
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `<div class="item-info">
+                <h4>${item.title}</h4>
+                <p>${item.author}</p>
+                <div class="quantity-controls">
+                    <button class="decrease-qty" data-id="${item.id}">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="increase-qty" data-id="${item.id}">+</button>
+                    </div>
+                    <p>RM${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="remove-item" data-id="${item.id}">&times;</button>
+                        </div>`;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            totalAmount.textContent = total.toFixed(2);
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== id);
+                    updateCart();
+                    saveCartToLocalStorage();
+                });
+            });
+
+            // Add event listeners for decrease quantity buttons
+            document.querySelectorAll('.decrease-qty').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const item = cart.find(item => item.id === id);
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        cart = cart.filter(item => item.id !== id);
+                    }
+                    updateCart();
+                    saveCartToLocalStorage();
+                });
+            });
+
+            // Add event listeners for increase quantity buttons
+            document.querySelectorAll('.increase-qty').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const item = cart.find(item => item.id === id);
+                    item.quantity += 1;
+                    updateCart();
+                    saveCartToLocalStorage();
+                });
+            });
+        }
+
+        // Save cart to localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Checkout
+        checkoutBtn.addEventListener('click', function() {
+            window.location.href = 'checkout.html';
+        });
+
+        // Initialize cart on page load
+        updateCart();
+
+        // Filter functionality
+        const genreFilter = document.getElementById('genre');
+        const sortFilter = document.getElementById('sort');
+        const bookCards = document.querySelectorAll('.book-card');
+
+        genreFilter.addEventListener('change', filterBooks);
+        sortFilter.addEventListener('change', filterBooks);
+
+        function filterBooks() {
+            const genreValue = genreFilter.value;
+            const sortValue = sortFilter.value;
+            
+            // Filter by genre
+            bookCards.forEach(card => {
+                if (genreValue === 'all' || card.getAttribute('data-genre') === genreValue) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Convert NodeList to Array for sorting
+            const cardsArray = Array.from(bookCards).filter(card => 
+                genreValue === 'all' || card.getAttribute('data-genre') === genreValue
+            );
+            
+            // Sort books
+            cardsArray.sort((a, b) => {
+                const aPrice = parseFloat(a.getAttribute('data-price'));
+                const bPrice = parseFloat(b.getAttribute('data-price'));
+                
+                switch(sortValue) {
+                    case 'price-low':
+                        return aPrice - bPrice;
+                    case 'price-high':
+                        return bPrice - aPrice;
+                    case 'newest':
+                        return parseInt(b.getAttribute('data-id')) - parseInt(a.getAttribute('data-id'));
+                    default: // popular
+                        return parseInt(a.getAttribute('data-id')) - parseInt(b.getAttribute('data-id'));
+                }
+            });
+            
+            // Reorder in DOM
+            const productsGrid = document.querySelector('.products-grid');
+            cardsArray.forEach(card => {
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Make book cards clickable
+        document.querySelectorAll('.book-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productId = this.getAttribute('data-id');
+                localStorage.setItem('currentProductId', productId);
+                window.location.href = 'product-detail.html';
+            });
+        });
+
+        // Get the nav toggle button and the nav container
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('nav');
+
+        // Add event listener to toggle the nav open/close
+        navToggle.addEventListener('click', () => {
+            nav.classList.toggle('nav-open');
+        });
+    </script>
+</body>
+</html>

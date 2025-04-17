@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - WanderBooks ワンダー本屋 </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Animation for the success icon */
+        .checkout-message i {
+            font-size: 4rem;
+            color: #4CAF50;
+            animation: bounceIn 1s ease-out;
+        }
+
+        /* Animation for the message text */
+        .checkout-message h2 {
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .checkout-message p {
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        /* Animation for the return button */
+        .checkout-message .btn {
+            animation: fadeInUp 0.8s ease-out 0.7s both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .checkout-message .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Keyframe animations */
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            80% {
+                transform: scale(0.9);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hover animations for social icons */
+        .social-icons a {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            color: #4CAF50;
+        }
+
+        /* Animation for footer sections */
+        .footer-section {
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Smooth transition for cart icon */
+        .cart-btn {
+            transition: transform 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <i class="fas fa-book-open"></i>
+                <h1>WanderBooks ワンダー本屋</h1>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-toggle">
+                <div class="hamburger-icon"></div>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Books</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="checkout-main">
+        <div class="checkout-message">
+            <i class="fas fa-check-circle"></i>
+            <h2>This is just a testing ecommerce website</h2>
+            <p>Thank you for shopping with us!</p>
+            <p>Your order has not been processed as this is a demo site.</p>
+            <a href="index.html" class="btn">Return to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Books</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@wanderbooks.com</p>
+                <p>Phone: (222) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 WanderBooks ワンダー本屋 | Alice Chua. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+    // Update cart count from localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = document.querySelector('.cart-count');
+        cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+
+        // Clear cart when returning home
+        document.getElementById('return-home').addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent immediate navigation
+            localStorage.removeItem('cart'); // Clear the cart
+            window.location.href = 'index.html'; // Then navigate home
+        });
+    });
+
+    // Clear cart on checkout page load
+    localStorage.removeItem('cart');
+    
+    // Update cart count (should show 0)
+    document.addEventListener('DOMContentLoaded', function() {
+        const cartCount = document.querySelector('.cart-count');
+        cartCount.textContent = '0';
+    });
+    // Get the nav toggle button and the nav container
+const navToggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('nav');
+
+// Add event listener to toggle the nav open/close
+navToggle.addEventListener('click', () => {
+  nav.classList.toggle('nav-open');
+});
+
+    </script>
+</body>
+</html>

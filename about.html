@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - WanderBooks ワンダー本屋</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <i class="fas fa-book-open"></i>
+                <h1>WanderBooks ワンダー本屋</h1>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-toggle">
+                <div class="hamburger-icon"></div>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Books</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="sidebar-cart">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            
+        </div>
+        <div class="cart-total">
+            <p><strong>Total:</strong> RM<span class="total-amount">0.00</span></p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+    <div class="overlay"></div>
+
+
+    <main>
+        <section class="about-hero">
+            <h1>Our Story</h1>
+            <p>Discover the passion behind WanderBooks ワンダー本屋</p>
+        </section>
+
+        <section class="about-content">
+            <div class="about-section">
+                <div class="about-text">
+                    <h2>Who We Are</h2>
+                    <p>WanderBooks ワンダー本屋 was founded in 2020 by Arisu, a passionate book lover who wanted to create a unique space where readers could discover stories that transport them to different worlds. What started as a small online bookstore has grown into a beloved destination for book enthusiasts.</p>
+                    <p>Our mission is to help you wander through the pages of wonderful stories, discovering new perspectives and adventures with each book you open.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Our Bookstore">
+                </div>
+            </div>
+
+            <div class="about-section reverse">
+                <div class="about-text">
+                    <h2>Our Values</h2>
+                    <p>At WanderBooks ワンダー本屋, we believe in the magic of reading. We're committed to:</p>
+                    <ul>
+                        <li>Curating quality books that inspire wanderlust</li>
+                        <li>Creating a welcoming community for all readers</li>
+                        <li>Supporting diverse voices in literature</li>
+                        <li>Providing personalized recommendations</li>
+                        <li>Making each reading journey special</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Reading Together">
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2>Meet Our Founder</h2>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="aliceprof.jpg" alt="Alice">
+                        <h3>Alice アリス</h3>
+                        <p>Founder & Chief Book Wanderer</p>
+                        <p class="founder-quote">"Every book is a new adventure waiting to be discovered. Dream with all your might. Theres nothing wrong with fantasing your life."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Books</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@wanderbooks.com</p>
+                <p>Phone: (222) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 WanderBooks ワンダー本屋 | Alice Chua. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Shopping cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartBtn = document.querySelector('.cart-btn');
+        const sidebarCart = document.querySelector('.sidebar-cart');
+        const overlay = document.querySelector('.overlay');
+        const closeCart = document.querySelector('.close-cart');
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const totalAmount = document.querySelector('.total-amount');
+        const checkoutBtn = document.querySelector('.checkout-btn');
+
+        // Open cart
+        cartBtn.addEventListener('click', function() {
+            sidebarCart.classList.add('open');
+            overlay.classList.add('show');
+        });
+
+        // Close cart
+        closeCart.addEventListener('click', function() {
+            sidebarCart.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebarCart.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        // Update cart UI
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `<div class="item-info">
+                <h4>${item.title}</h4>
+                <p>${item.author}</p>
+                <div class="quantity-controls">
+                    <button class="decrease-qty" data-id="${item.id}">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="increase-qty" data-id="${item.id}">+</button>
+                    </div>
+                    <p>RM${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="remove-item" data-id="${item.id}">&times;</button>
+                        </div>`;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            totalAmount.textContent = total.toFixed(2);
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== id);
+                    updateCart();
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                });
+            });
+        }
+
+        // Checkout
+        checkoutBtn.addEventListener('click', function() {
+            window.location.href = 'checkout.html';
+        });
+
+        // Initialize cart on page load
+        updateCart();
+        // Add these event listeners after your remove-item listeners in updateCart():
+
+// Decrease quantity
+document.querySelectorAll('.decrease-qty').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        const item = cart.find(item => item.id === id);
+        if (item.quantity > 1) {
+            item.quantity -= 1;
+        } else {
+            cart = cart.filter(item => item.id !== id);
+        }
+        updateCart();
+        localStorage.setItem('cart', JSON.stringify(cart));
+    });
+});
+
+// Increase quantity
+document.querySelectorAll('.increase-qty').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        const item = cart.find(item => item.id === id);
+        item.quantity += 1;
+        updateCart();
+        localStorage.setItem('cart', JSON.stringify(cart));
+    });
+});
+// Get the nav toggle button and the nav container
+const navToggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('nav');
+
+// Add event listener to toggle the nav open/close
+navToggle.addEventListener('click', () => {
+  nav.classList.toggle('nav-open');
+});
+
+    </script>
+</body>
+</html>

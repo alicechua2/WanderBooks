@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - WanderBooks ワンダー本屋 </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <i class="fas fa-book-open"></i>
+                <h1>WanderBooks ワンダー本屋</h1>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-toggle">
+                <div class="hamburger-icon"></div>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Books</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sidebar-cart">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        
+        <div class="cart-total">
+            <p><strong>Total:</strong> RM<span class="total-amount">0.00</span></p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+    <div class="overlay"></div>
+
+    <main class="product-detail-container">
+        <div class="product-detail-image">
+            <img id="detail-image" src="" alt="Book Cover">
+        </div>
+        <div class="product-detail-info">
+            <h1 id="detail-title"></h1>
+            <p class="detail-author" id="detail-author"></p>
+            <p class="detail-price" id="detail-price"></p>
+            <p class="detail-genre" id="detail-genre"></p>
+            <div class="detail-description">
+                <h3>Description</h3>
+                <p id="detail-description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <button class="add-to-cart" id="detail-add-to-cart">Add to Cart</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Books</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@wanderbooks.com</p>
+                <p>Phone: (222) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 WanderBooks ワンダー本屋 | Alice Chua. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping cart functionality (same as in products.html)
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartBtn = document.querySelector('.cart-btn');
+        const sidebarCart = document.querySelector('.sidebar-cart');
+        const overlay = document.querySelector('.overlay');
+        const closeCart = document.querySelector('.close-cart');
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const totalAmount = document.querySelector('.total-amount');
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        const addToCartBtn = document.getElementById('detail-add-to-cart');
+
+        // Open cart
+        cartBtn.addEventListener('click', function() {
+            sidebarCart.classList.add('open');
+            overlay.classList.add('show');
+        });
+
+        // Close cart
+        closeCart.addEventListener('click', function() {
+            sidebarCart.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebarCart.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        // Add to cart from detail page
+        addToCartBtn.addEventListener('click', function() {
+            const id = localStorage.getItem('currentProductId');
+            const title = document.getElementById('detail-title').textContent;
+            const price = parseFloat(document.getElementById('detail-price').textContent.replace('RM', ''));
+            const author = document.getElementById('detail-author').textContent;
+            
+            // Check if item already in cart
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    title,
+                    price,
+                    author,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            saveCartToLocalStorage();
+        });
+
+        // Update cart UI
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `<div class="item-info">
+                <h4>${item.title}</h4>
+                <p>${item.author}</p>
+                <div class="quantity-controls">
+                    <button class="decrease-qty" data-id="${item.id}">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="increase-qty" data-id="${item.id}">+</button>
+                    </div>
+                    <p>RM${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="remove-item" data-id="${item.id}">&times;</button>
+                        </div>`;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            totalAmount.textContent = total.toFixed(2);
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== id);
+                    updateCart();
+                    saveCartToLocalStorage();
+                });
+            });
+            
+            // Add event listeners to quantity controls
+            document.querySelectorAll('.decrease-qty').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const item = cart.find(item => item.id === id);
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        cart = cart.filter(item => item.id !== id);
+                    }
+                    updateCart();
+                    saveCartToLocalStorage();
+                });
+            });
+            
+            document.querySelectorAll('.increase-qty').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const item = cart.find(item => item.id === id);
+                    item.quantity += 1;
+                    updateCart();
+                    saveCartToLocalStorage();
+                });
+            });
+        }
+
+        // Save cart to localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Checkout
+        checkoutBtn.addEventListener('click', function() {
+            window.location.href = 'checkout.html';
+        });
+
+        // Load product details
+        document.addEventListener('DOMContentLoaded', function() {
+            const productId = localStorage.getItem('currentProductId');
+            if (!productId) {
+                window.location.href = 'products.html';
+                return;
+            }
+            
+            // In a real app, you would fetch this data from a database
+            // For this example, we'll use a simple mapping
+            const productDatabase = {
+    "1": {
+        title: "薬屋のひとりごと<１４>（ビッグガンガンコミックス）",
+        author: "日向夏 / ねこクラゲ",
+        price: "33.20",
+        genre: "Comic / Manga",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97847/97847575/9784757594395.JPG",
+        description: "Volume 14 of the popular manga series 'The Apothecary Diaries' (Kusuriya no Hitorigoto). Follows Maomao, a young woman working in the imperial court's pharmacy who uses her brilliant mind to solve medical mysteries in ancient China. This volume continues her intriguing adventures in the palace."
+    },
+    "2": {
+        title: "Twisted Series 4 Books Collection Set",
+        author: "Ana Huang",
+        price: "212.84",
+        genre: "Fiction / Romance",
+        image: "https://m.media-amazon.com/images/I/71E+55LfX3L._SY342_.jpg",
+        description: "This collection includes all four books in Ana Huang's Twisted series: Twisted Love, Twisted Games, Twisted Hate, and Twisted Lies. Each book follows a different couple with intense chemistry, emotional depth, and steamy romance. Perfect for fans of contemporary romance with complex characters and gripping storylines."
+    },
+    "3": {
+        title: "薬屋のひとりごと<１５>（ビッグガンガンコミックス）",
+        author: "日向夏 / ねこクラゲ",
+        price: "34.29",
+        genre: "Comic / Manga",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97847/97847575/9784757597693.JPG",
+        description: "Volume 15 of the beloved 'The Apothecary Diaries' series. Maomao continues to navigate the intrigues of the imperial court while solving medical mysteries. This volume features new challenges and deeper character development in this historical mystery manga set in ancient China."
+    },
+    "4": {
+        title: "Shatter Me Series Books 1 - 7 Collection Set",
+        author: "Tahereh Mafi",
+        price: "116.81",
+        genre: "Fiction / Dystopian",
+        image: "https://m.media-amazon.com/images/I/81qOrDffOUL._SY342_.jpg",
+        description: "Complete 7-book set of the Shatter Me series: Shatter Me, Unravel Me, Ignite Me, Restore Me, Defy Me, Imagine Me, and Believe Me. Follow Juliette's journey in a dystopian world where her touch is lethal. A gripping blend of romance, superpowers, and rebellion against a corrupt regime."
+    },
+    "5": {
+        title: "進撃の巨人<３４>（少年マガジンＫＣ）",
+        author: "諌山創",
+        price: "33.70",
+        genre: "Comic / Manga",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97840/97840652/9784065234174.JPG",
+        description: "Volume 34 of Attack on Titan (Shingeki no Kyojin), the final volume of the groundbreaking manga series. Eren Yeager's story reaches its dramatic conclusion in this volume that shocked fans worldwide. Contains the last chapters of this epic tale of humanity's struggle against the Titans."
+    },
+    "6": {
+        title: "Haunting Adeline (Cat and Mouse Duet)",
+        author: "H.D. Carlton",
+        price: "99.00",
+        genre: "Adult Romance / Dark Romance",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97816/97816389/9781638932468.JPG",
+        description: "The first book in the Cat and Mouse Duet, a dark romance that follows Adeline, a woman who inherits a haunted estate, and Zade, the mysterious man obsessed with her. This gripping story explores dark themes with intense chemistry between the main characters. Not for the faint of heart."
+    },
+    "7": {
+        title: "God of Fury (Legacy of Gods)",
+        author: "Rina Kent",
+        price: "63.48",
+        genre: "Adult Romance",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97818/97818049/9781804955956.JPG",
+        description: "Book 5 in the Legacy of Gods series. A steamy enemies-to-lovers romance featuring Nikolai, the Russian mafia heir, and Brandon, the golden boy with a dark side. Explores themes of obsession, power dynamics, and forbidden attraction in the world of elite college students with mafia connections."
+    },
+    "8": {
+        title: "Yeonnam-dong's Smiley Laundromat",
+        author: "Kim Jiyun",
+        price: "89.90",
+        genre: "Slice of Life / Contemporary Fiction",
+        image: "https://hachette.imgix.net/books/9781529437423.jpg?auto=compress&w=440",
+        description: "A heartwarming Korean bestseller about a young woman who inherits a laundromat in Seoul's trendy Yeonnam-dong neighborhood. Through washing strangers' clothes, she discovers their stories and finds healing for her own life. A poignant look at modern Korean society and human connections."
+    },
+    "9": {
+        title: "A Good Girl's Guide to Murder",
+        author: "Holly Jackson",
+        price: "59.90",
+        genre: "Mystery / Young Adult",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97814/97814052/9781405293181.JPG",
+        description: "Pip Fitz-Amobi investigates a closed murder case for her school project, convinced the wrong person was convicted. As she digs deeper, she uncovers dark secrets in her small town. A gripping YA mystery with unexpected twists that will keep readers guessing until the final page."
+    },
+    "10": {
+        title: "The Convenience Store by the Sea",
+        author: "Sonoko Machida",
+        price: "69.90",
+        genre: "Slice of Life / Contemporary Fiction",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97813/97813987/9781398722774.JPG",
+        description: "A poignant Japanese novel about a convenience store worker in a coastal town who finds meaning in her mundane job. Through interactions with customers and coworkers, she discovers the beauty of everyday life. A meditation on finding purpose in simple things, with beautiful seaside imagery."
+    },
+    "11": {
+        title: "What I Ate in One Year",
+        author: "Stanley Tucci",
+        price: "138.00",
+        genre: "Biography / Food Writing",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97802/97802416/9780241683132.JPG",
+        description: "Actor and food lover Stanley Tucci chronicles a year of eating, traveling, and cooking. Part memoir, part cookbook, with reflections on family, culture, and the power of food to connect people. Includes recipes and stories from his life in film and his passion for Italian cuisine."
+    },
+    "12": {
+        title: "One Dark Window",
+        author: "Rachel Gillig",
+        price: "69.90",
+        genre: "Fiction / Fantasy",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97803/97803565/9780356519494.JPG",
+        description: "A gothic fantasy romance about Elspeth, a young woman infected with magic who must team up with a mysterious highwayman to cure her kingdom of a magical plague. Atmospheric and romantic, with a unique magic system and plenty of dark twists. First in the Shepherd King duology."
+    },
+    "13": {
+        title: "The Housemaid",
+        author: "Freida McFadden",
+        price: "64.95",
+        genre: "Mystery / Thriller",
+        image: "https://bci.kinokuniya.com/jsp/images/book-img/97815/97815387/9781538742570.JPG",
+        description: "A psychological thriller about a young woman who takes a job as a live-in housemaid for a wealthy family, only to discover disturbing secrets in their luxurious home. Full of twists and turns, this gripping novel explores class, power, and deception in domestic settings."
+    }
+};
+            
+            const product = productDatabase[productId];
+            if (product) {
+                document.getElementById('detail-title').textContent = product.title;
+                document.getElementById('detail-author').textContent = product.author;
+                document.getElementById('detail-price').textContent = `RM${product.price}`;
+                document.getElementById('detail-genre').textContent = product.genre;
+                document.getElementById('detail-image').src = product.image;
+                document.getElementById('detail-image').alt = product.title;
+                document.getElementById('detail-description-text').textContent = product.description;
+                
+                // Set the product ID for the add to cart button
+                addToCartBtn.setAttribute('data-id', productId);
+            } else {
+                window.location.href = 'products.html';
+            }
+            
+            updateCart();
+        });
+        // Get the nav toggle button and the nav container
+const navToggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('nav');
+
+// Add event listener to toggle the nav open/close
+navToggle.addEventListener('click', () => {
+  nav.classList.toggle('nav-open');
+});
+
+    </script>
+</body>
+</html>
